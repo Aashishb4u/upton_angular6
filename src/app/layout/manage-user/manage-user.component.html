@@ -1,0 +1,189 @@
+<div class="padding-top">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="manage-user-head">
+                <div class="search-container">
+                    <span class="search-icons"><i class="fa fa-search" aria-hidden="true"></i></span>
+                    <input placeholder="Search" [(ngModel)]="searchContent" class="search-thread"
+                           (keyup.enter)="findThread(searchContent)" onblur="this.value = this.value.trim()">
+                    <i *ngIf="searchContent.trim()" class="fa fa-close search-icon" (click)="clearSearch()"></i>
+                </div>
+
+
+                <div class="radio-field-customer">
+                    <span class="radio-block">
+                        <input type="radio" class="radio-button" value="" name="RadioSelect" (click)="selectList($event)"
+                            [(ngModel)]="selectedOption">
+                        <label class="radio-label">All</label>
+                    </span>
+
+                    <span class="radio-block">
+                        <input type="radio" class="radio-button" value="active" name="RadioSelect"
+                               id="active" (click)="selectList($event)" [(ngModel)]="selectedOption">
+                        <label class="radio-label">Active</label>
+                    </span>
+
+                    <span>
+                        <input type="radio" class="radio-button" value="inactive" name="RadioSelect"
+                               id="inactive" (click)="selectList($event)" [(ngModel)]="selectedOption">
+                        <label class="radio-label">InActive</label>
+                    </span>
+                </div>
+
+                <div class="add-user-container">
+                    <button type="button" [routerLink]="['/users/add-user']" title="Add User"><i class="fa fa-plus"
+                                                                                                 aria-hidden="true"></i>
+                        Add User
+                    </button>
+                </div>
+            </div>
+
+            <div class="manage-user">
+                <div class="col-lg-12 padding-zero">
+                    <div class="custyle">
+                        <table class="table-striped custab">
+                            <thead class="table-head">
+                            <tr>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>First Name</span>
+                                </th>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>Last Name</span>
+                                </th>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>Email</span>
+                                </th>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>Registered On</span>
+                                </th>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>Role</span>
+                                </th>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>Status</span>
+                                </th>
+                                <th class="border-row head-row"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="table-row-client"
+                                *ngFor='let franchise of franchiseUserList | paginate : { itemsPerPage: this.perPage, currentPage: pageNumber, id : "listItem", totalItems: totalCount}'>
+                                <td class="row-center-align capitalize">{{franchise.first_name}}</td>
+                                <td class="row-center-align capitalize">{{franchise.last_name}}</td>
+                                <td class="row-center-align">{{franchise.email}}</td>
+                                <td class="row-center-align capitalize">{{franchise.created_at | date: "yyyy-MM-dd"}}
+                                </td>
+                                <td class="row-center-align" *ngIf="franchise.role == 'company_manager'">Company
+                                    Manager
+                                </td>
+                                <td class="row-center-align" *ngIf="franchise.role == 'store_manager'">Store Manager
+                                </td>
+                                <td class="row-center-align" *ngIf="franchise.role == 'franchise_user'">Franchise User
+                                </td>
+                                <td class="row-center-align capitalize">
+                                    <span [ngClass]="{'active-status' : franchise.status == 'Active', 'inactive-status' : franchise.status == 'In-Active'}">{{franchise.status}}</span>
+                                </td>
+                                <td class="border-row">
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-primary dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <i class="fa fa-th" aria-hidden="true"></i>&nbsp;
+                                            Actions
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item items" title="Edit User"
+                                               (click)="editUser(franchise)">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;
+                                                <span>Edit</span>
+                                            </a>
+                                            <a class="dropdown-item items" title="Delete User"
+                                               (click)="deleteUser(franchise)">
+                                                <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;
+                                                <span>Delete</span>
+                                            </a>
+                                            <a class="dropdown-item items" *ngIf="franchise.status != 'Active'"
+                                               (click)="activeInactive(franchise)" title="Activate User">
+                                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>&nbsp;
+                                                <span>Activate</span>
+                                            </a>
+                                            <a class="dropdown-item items" *ngIf="franchise.status == 'Active'"
+                                               (click)="activeInactive(franchise)" title="Deactivate User">
+                                                <i class="fa fa-times-circle-o" aria-hidden="true"></i>&nbsp;
+                                                <span>Deactivate</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div *ngIf="franchiseUserList.length == 0" class="no-data">
+                            No record found
+                        </div>
+                    </div>
+                    <div class="entries">
+                        <div>
+                            <label>Show
+                                <select [(ngModel)]="perPage" (change)="pageLimit(perPage)">
+                                    <option value="10" selected>10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                entries</label>
+                        </div>
+                    </div>
+                    <div class="paginationControl">
+                        <pagination-controls class="pageControl" (pageChange)="getPageData($event)" id="listItem"
+                                             nextLabel="Next">
+                        </pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row modalContainer">
+    <modal #myModal>
+        <modal-header>
+            <div class="heading">
+                <h1>Are you sure you want to delete this User?</h1>
+            </div>
+        </modal-header>
+        <modal-content>
+            <div class="content-block">
+                <div class="button-container">
+                    <button type="button" class="btn no" (click)="myModal.close()" tabindex="2">No</button>
+                    <button type="submit" id="myAnchor" class="btn yes" (click)="confirmDelete()" tabindex="1">Yes
+                    </button>
+                </div>
+            </div>
+        </modal-content>
+        <modal-footer></modal-footer>
+    </modal>
+</div>
+
+<div class="row modalContainer">
+    <modal #activeInactiveModal>
+        <modal-header>
+            <div class="heading">
+                <h1 *ngIf="this.isActive == '0'">Are you sure you want to deactivate this User?</h1>
+                <h1 *ngIf="this.isActive == '1'">Are you sure you want to activate this User?</h1>
+            </div>
+        </modal-header>
+        <modal-content>
+            <div class="content-block">
+                <div class="button-container">
+                    <button type="button" class="btn no" (click)="activeInactiveModal.close()" tabindex="2">No</button>
+                    <button type="submit" class="btn yes" (click)="confirmActivateDeactivate()" tabindex="1">Yes
+                    </button>
+                </div>
+            </div>
+        </modal-content>
+        <modal-footer></modal-footer>
+    </modal>
+</div>
+
+
+

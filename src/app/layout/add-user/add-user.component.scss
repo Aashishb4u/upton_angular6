@@ -1,0 +1,102 @@
+@import '../../../styles.scss';
+@import '../../shared/theme/sass/auth';
+
+.padding-top {
+  padding-top: 55px;
+}
+
+.add-user {
+  width: 100%;
+  float: left;
+  background: #eee;
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px 0 $shadow-color;
+  .form-row-container {
+    width: 100%;
+    float: left;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px 0;
+    .input-field {
+      width: 48%;
+      float: left;
+      text-align: left;
+      position: relative;
+      label {
+        font-size: 13px;
+        span {
+          color: red;
+        }
+      }
+      .form-control {
+        outline: none;
+      }
+      .form-control:focus {
+        color: #495057;
+        background-color: #fff;
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: none;
+      }
+      input.form-control, select.form-control {
+        font-size: 14px;
+      }
+      .capitalize {
+        text-transform: capitalize;
+      }
+      .sign-in-error-message {
+        position: absolute;
+        bottom: -22px;
+        span {
+          color: red;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+  .submit-button {
+    width: 100%;
+    float: left;
+    padding: 10px 20px;
+    text-align: right;
+    .submit {
+      width: auto;
+      color: #fff;
+      padding: 0 15px;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+      height: 35px;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+      background-color: #c61e23;
+      border: 1px solid #c61e23;
+      i.fa.fa-plus {
+        margin-right: 2.5px;
+      }
+    }
+    .disableSubmit {
+      cursor: not-allowed;
+      opacity: 0.9;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .add-user .form-row-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    .input-field {
+      width: 100%;
+      padding: 10px 0;
+      label {
+        line-height: 10px;
+      }
+      .sign-in-error-message {
+        position: absolute;
+        bottom: -10px;
+      }
+    }
+  }
+}

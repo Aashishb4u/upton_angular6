@@ -1,0 +1,229 @@
+<div class="padding-top">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="add-store">
+                <div class="col-lg-12">
+                    <form [formGroup]="manageStoreForm" (ngSubmit)="onSubmit(manageStoreForm.value)">
+                        <div class="form-group form-title">
+                            <label>Company Details</label>
+                        </div>
+                        <div class="form-block">
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Company Name <span>*</span></label>
+                                    <select class="form-control" formControlName="companyName" tabindex="1" autofocus>
+                                        <option value="" selected>Please select company</option>
+                                        <option *ngFor="let company of companyUserList" value="{{company.id}}">
+                                            {{company.company_name}}
+                                        </option>
+                                    </select>
+
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!manageStoreForm.get('companyName').valid && manageStoreForm.get('companyName').touched"class="help-block sub-little-signUp-error confpass">Company Name is {{!manageStoreForm.get('companyName').valid && manageStoreForm.get('companyName').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                    <div class="add-company-link">
+                                        <a [routerLink]="['/manage-company/add-company']" title="Add Company"  tabindex="2"><span>Add Company</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-title">
+                            <label>Store Details</label>
+                        </div>
+                        <div class="form-block">
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Store Number <span>*</span></label>
+                                    <input class="form-control" type="text" formControlName="storeNumber"
+                                           onblur="this.value = this.value.trim();" maxlength="35" tabindex="3">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!manageStoreForm.get('storeNumber').valid && manageStoreForm.get('storeNumber').touched"
+                                            class="help-block sub-little-signUp-error confpass">Store Name is {{!manageStoreForm.get('storeNumber').valid && manageStoreForm.get('storeNumber').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="input-field">
+                                    <label>Street Address <span>*</span></label>
+                                    <input class="form-control capitalize" type="text" formControlName="storeAddress" tabindex="4"
+                                           onblur="this.value = this.value.trim();" maxlength="100">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!manageStoreForm.get('storeAddress').valid && manageStoreForm.get('storeAddress').touched"
+                                            class="help-block sub-little-signUp-error confpass">Address is {{!manageStoreForm.get('storeAddress').valid && manageStoreForm.get('storeAddress').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>State <span>*</span></label>
+                                    <select class="form-control" formControlName="state" tabindex="5">
+                                        <option value="" selected>Select State</option>
+                                        <option *ngFor="let stateCode of stateGroupList[0]">
+                                            {{stateCode.name}}
+                                        </option>
+                                    </select>
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!manageStoreForm.get('state').valid && manageStoreForm.get('state').touched"
+                                            class="help-block sub-little-signUp-error confpass">State is {{!manageStoreForm.get('state').valid && manageStoreForm.get('state').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <label>City <span>*</span></label>
+                                    <input class="form-control capitalize" type="text" formControlName="city"
+                                           onblur="this.value = this.value.trim();" maxlength="35" pattern="[A-Za-z\s]+"
+                                           tabindex="6">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!manageStoreForm.get('city').valid && manageStoreForm.get('city').touched"
+                                            class="help-block sub-little-signUp-error confpass">City is {{!manageStoreForm.get('city').valid && manageStoreForm.get('city').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Zip Code <span>*</span></label>
+                                    <input class="form-control" type="text" formControlName="zip"
+                                           [textMask]="{mask: zipMask, guide: false}"
+                                           onblur="this.value = this.value.trim();" minlength="5" maxlength="5"
+                                           tabindex="7">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!manageStoreForm.get('zip').valid && manageStoreForm.get('zip').touched"
+                                            class="help-block sub-little-signUp-error confpass">Zip is {{!manageStoreForm.get('zip').valid && manageStoreForm.get('zip').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="input-field">
+                                    <label>Store Phone Number <span>*</span></label>
+                                    <input class="form-control" type="text" formControlName="phoneNumber"
+                                           [textMask]="{mask: mask, guide: false}" minlength="12" maxlength="12"
+                                           onblur="this.value = this.value.trim();" tabindex="8">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!manageStoreForm.get('phoneNumber').valid && manageStoreForm.get('phoneNumber').touched"
+                                            class="help-block sub-little-signUp-error confpass">Phone Number is {{!manageStoreForm.get('phoneNumber').valid && manageStoreForm.get('phoneNumber').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group form-title">-->
+                            <!--<label>Manager Details</label>-->
+                        <!--</div>-->
+                        <!--<div class="form-block">-->
+                            <!--<div class="form-group form-row-container">-->
+                                <!--<div class="input-field">-->
+                                    <!--<label>Manager First Name </label>-->
+                                    <!--<input class="form-control capitalize" type="text" pattern="[A-Za-z\s]+" formControlName="managerFirstName"-->
+                                           <!--onblur="this.value = this.value.trim();" maxlength="35" tabindex="9">-->
+                                    <!--<div class="sign-in-error-message">-->
+                                        <!--<span *ngIf="!manageStoreForm.get('managerFirstName').valid && manageStoreForm.get('managerFirstName').touched"-->
+                                              <!--class="help-block sub-little-signUp-error confpass">Manager First Name is {{!manageStoreForm.get('managerFirstName').valid && manageStoreForm.get('managerFirstName').value === ''?'required':'invalid'}}</span>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <!--<div class="input-field">-->
+                                    <!--<label>Manager Last Name </label>-->
+                                    <!--<input class="form-control capitalize" type="text" pattern="[A-Za-z\s]+" formControlName="managerLastName"-->
+                                           <!--onblur="this.value = this.value.trim();" maxlength="35" tabindex="10">-->
+                                    <!--<div class="sign-in-error-message">-->
+                                        <!--<span *ngIf="!manageStoreForm.get('managerLastName').valid && manageStoreForm.get('managerLastName').touched"-->
+                                              <!--class="help-block sub-little-signUp-error confpass">Manager Last Name is {{!manageStoreForm.get('managerLastName').valid && manageStoreForm.get('managerLastName').value === ''?'required':'invalid'}}</span>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="form-group form-row-container">-->
+                                <!--<div class="input-field">-->
+                                    <!--<label>Email </label>-->
+                                    <!--<input class="form-control" type="email" formControlName="managerEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"-->
+                                           <!--onkeyup="this.value = this.value.trim();" maxlength="35" tabindex="11">-->
+                                    <!--<div class="sign-in-error-message">-->
+                                        <!--<span *ngIf="!manageStoreForm.get('managerEmail').valid && manageStoreForm.get('managerEmail').touched"-->
+                                              <!--class="help-block sub-little-signUp-error confpass">Manager Email is {{!manageStoreForm.get('managerEmail').valid && manageStoreForm.get('managerEmail').value === ''?'required':'invalid'}}</span>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <!--<div class="input-field">-->
+                                    <!--<label>Phone Number </label>-->
+                                    <!--<input class="form-control" type="text" [textMask]="{mask: mask, guide: false}" formControlName="managerPhoneNumber"-->
+                                           <!--minlength="12" maxlength="12" onblur="this.value = this.value.trim();" tabindex="12">-->
+                                    <!--<div class="sign-in-error-message">-->
+                                        <!--<span *ngIf="!manageStoreForm.get('managerPhoneNumber').valid && manageStoreForm.get('managerPhoneNumber').touched"-->
+                                              <!--class="help-block sub-little-signUp-error confpass">Phone Number is {{!manageStoreForm.get('managerPhoneNumber').valid && manageStoreForm.get('managerPhoneNumber').value === ''?'required':'invalid'}}</span>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <div class="form-group form-title">
+                            <label>Contact Details</label>
+                        </div>
+                        <div class="form-block">
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Contact First Name <span>*</span></label>
+                                    <input class="form-control capitalize" type="text" pattern="[A-Za-z\s]+" formControlName="contactFirstName"
+                                           onblur="this.value = this.value.trim();" maxlength="35" tabindex="13">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!manageStoreForm.get('contactFirstName').valid && manageStoreForm.get('contactFirstName').touched"
+                                              class="help-block sub-little-signUp-error confpass">Contact First Name is {{!manageStoreForm.get('contactFirstName').valid && manageStoreForm.get('contactFirstName').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <label>Contact Last Name <span>*</span></label>
+                                    <input class="form-control capitalize" type="text" pattern="[A-Za-z\s]+" formControlName="contactLastName"
+                                           onblur="this.value = this.value.trim();" maxlength="35" tabindex="14">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!manageStoreForm.get('contactLastName').valid && manageStoreForm.get('contactLastName').touched"
+                                              class="help-block sub-little-signUp-error confpass">Contact Last Name is {{!manageStoreForm.get('contactLastName').valid && manageStoreForm.get('contactLastName').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Email <span>*</span></label>
+                                    <input class="form-control" type="email" formControlName="contactEmail"
+                                           onblur="this.value = this.value.trim();" maxlength="70" tabindex="15">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!manageStoreForm.get('contactEmail').valid && manageStoreForm.get('contactEmail').touched"
+                                              class="help-block sub-little-signUp-error confpass">Email is {{!manageStoreForm.get('contactEmail').valid && manageStoreForm.get('contactEmail').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="input-field">
+                                    <label>Phone Number </label>
+                                    <input class="form-control" type="text" [textMask]="{mask: mask, guide: false}" formControlName="contactPhoneNumber"
+                                           minlength="12" maxlength="12" onblur="this.value = this.value.trim();" tabindex="16">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!manageStoreForm.get('contactPhoneNumber').valid && manageStoreForm.get('contactPhoneNumber').touched"
+                                              class="help-block sub-little-signUp-error confpass">Phone Number is {{!manageStoreForm.get('contactPhoneNumber').valid && manageStoreForm.get('contactPhoneNumber').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Position </label>
+                                    <input class="form-control capitalize" type="text" formControlName="contactPosition"
+                                           onblur="this.value = this.value.trim();" maxlength="35" tabindex="17">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!manageStoreForm.get('contactPosition').valid && manageStoreForm.get('contactPosition').touched"
+                                              class="help-block sub-little-signUp-error confpass">Position is {{!manageStoreForm.get('contactPosition').valid && manageStoreForm.get('contactPosition').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 submit-button">
+                            <button type="submit" class="submit" [ngClass]="{'disableSubmit':disableSubmit()}" [disabled]="disableSubmit()" tabindex="18">
+                                Add Store
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

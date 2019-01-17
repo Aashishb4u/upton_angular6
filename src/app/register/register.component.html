@@ -1,0 +1,302 @@
+<div class="register-container">
+    <div>
+        <div class="container">
+            <ul class="progressbar3">
+                <li [ngClass]="{'active' : tab.isOwnerDetailTab.active, 'done': tab.isOwnerDetailTab.hasDone}">Owner
+                    Information
+                </li>
+                <li [ngClass]="{'active' : tab.isBillingTab.active, 'done': tab.isBillingTab.hasDone}">Billing
+                    Information
+                </li>
+                <li [ngClass]="{'active' : tab.isSecurityTab.active, 'done': tab.isSecurityTab.hasDone}">Account
+                    Security
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="register-segment">
+        <div class="register-box">
+            <div class="col-xs-12 img-container">
+                <img src="../../assets/img/uptonLogo.png">
+            </div>
+            <div class="register-form">
+                <div class="form-block">
+                    <form *ngIf="setType === 'owner'" [formGroup]="registerForm"
+                          (ngSubmit)="onOwnerSubmit(registerForm.value)">
+                        <div class="register-form-container padding-top">
+                            <div class="input-field">
+                                <label>First Name <span>*</span></label>
+                                <input type="text" class="form-control inputbox capitalize" tabindex="1"
+                                       formControlName="firstName" pattern="[A-Za-z\s]+"
+                                       onblur="this.value = this.value.trim();"
+                                       maxlength="35" autofocus>
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!registerForm.get('firstName').valid && registerForm.get('firstName').touched"
+                                          class="help-block sub-little-signUp-error confpass">First Name is {{!registerForm.get('firstName').valid && registerForm.get('firstName').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+
+                            <div class="input-field">
+                                <label>Last Name <span>*</span></label>
+                                <input type="text" class="form-control inputbox capitalize" tabindex="2"
+                                       formControlName="lastName" pattern="[A-Za-z\s]+"
+                                       onblur="this.value = this.value.trim();"
+                                       maxlength="35">
+                                <div class="sign-in-error-message">
+                                <span *ngIf="!registerForm.get('lastName').valid && registerForm.get('lastName').touched"
+                                      class="help-block sub-little-signUp-error confpass">Last Name is {{!registerForm.get('lastName').valid && registerForm.get('lastName').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="register-form-container">
+                            <div class="input-field">
+                                <label>Franchisee Name <span>*</span></label>
+                                <input type="text" class="form-control inputbox capitalize" tabindex="3"
+                                       formControlName="franchiseeName" pattern="[A-Za-z\s]+"
+                                       onblur="this.value = this.value.trim();"
+                                       maxlength="35">
+                                <div class="sign-in-error-message">
+                                <span *ngIf="!registerForm.get('franchiseeName').valid && registerForm.get('franchiseeName').touched"
+                                      class="help-block sub-little-signUp-error confpass">Franchisee Name is {{!registerForm.get('franchiseeName').valid && registerForm.get('franchiseeName').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+
+                            <div class="input-field">
+                                <label>Email <span>*</span></label>
+                                <input type="text" class="form-control inputbox" formControlName="email"
+                                       onkeyup="this.value = this.value.trim();" maxlength="70" tabindex="4">
+                                <div class="sign-in-error-message">
+                                <span *ngIf="!registerForm.get('email').valid && registerForm.get('email').touched"
+                                      class="help-block sub-little-signUp-error confpass">Email is {{!registerForm.get('email').valid && registerForm.get('email').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="register-form-container">
+                            <div class="input-field">
+                                <label>Phone Number</label>
+                                <input type="text" class="form-control inputbox" formControlName="phoneNumber"
+                                       [textMask]="{mask: mask, guide: false}" minlength="12" maxlength="12"
+                                       onblur="this.value = this.value.trim();" tabindex="5">
+                                <div class="sign-in-error-message">
+                                <span *ngIf="!registerForm.get('phoneNumber').valid && registerForm.get('phoneNumber').touched"
+                                      class="help-block sub-little-signUp-error confpass">Phone Number is {{!registerForm.get('phoneNumber').valid && registerForm.get('phoneNumber').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+
+                            <div class="input-field">
+                                <label>State</label>
+                                <div class="dropdown dropdown-state">
+                                    <select class="dropdown-state-toggle" formControlName="state" tabindex="6">
+                                        <option value="" selected>Select</option>
+                                        <option *ngFor="let stateCode of stateGroupList[0]">{{stateCode.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="sign-in-error-message">
+                                <span *ngIf="!registerForm.get('state').valid && registerForm.get('state').touched"
+                                      class="help-block sub-little-signUp-error confpass">State is {{!registerForm.get('state').valid && registerForm.get('state').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="register-form-container">
+                            <div class="input-field">
+                                <label>City</label>
+                                <input type="text" class="form-control inputbox capitalize" formControlName="city"
+                                       onblur="this.value = this.value.trim();" pattern="[A-Za-z\s]+" maxlength="35"
+                                       tabindex="7">
+                                <div class="sign-in-error-message">
+                                <span *ngIf="!registerForm.get('city').valid && registerForm.get('city').touched"
+                                      class="help-block sub-little-signUp-error confpass">City is {{!registerForm.get('city').valid && registerForm.get('city').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+
+                            <div class="input-field">
+                                <label>Street Address</label>
+                                <input type="text" class="form-control inputbox capitalize" formControlName="address"
+                                       onblur="this.value = this.value.trim();" maxlength="100" tabindex="8">
+                                <div class="sign-in-error-message">
+                                <span *ngIf="!registerForm.get('address').valid && registerForm.get('address').touched"
+                                      class="help-block sub-little-signUp-error confpass">Street Address is {{!registerForm.get('address').valid && registerForm.get('address').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="register-form-container">
+                            <div class="input-field">
+                                <label>Zip</label>
+                                <input type="text" class="form-control inputbox" formControlName="zip"
+                                       [textMask]="{mask: zipMask, guide: false}"
+                                       onblur="this.value = this.value.trim();" minlength="5" maxlength="5"
+                                       tabindex="9">
+                                <div class="sign-in-error-message">
+                                <span *ngIf="!registerForm.get('zip').valid && registerForm.get('zip').touched"
+                                      class="help-block sub-little-signUp-error confpass">Zip is {{!registerForm.get('zip').valid && registerForm.get('zip').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 go-btn">
+                            <button type="submit" class="submit" [ngClass]="{'disableSubmit':disableSubmit()}"
+                                    [disabled]="disableSubmit()">Next <i class="fa fa-chevron-right"
+                                                                         aria-hidden="true"></i></button>
+                        </div>
+                    </form>
+
+                    <form *ngIf="setType === 'billing'" [formGroup]="billingForm"
+                          (ngSubmit)="onBillingSubmit(billingForm.value)">
+                        <div class="register-form-container padding-top">
+                            <div class="input-field">
+                                <label>Billing First Name <span>*</span></label>
+                                <input type="text" class="form-control inputbox capitalize" tabindex="1"
+                                       formControlName="billFirstName" pattern="[A-Za-z\s]+"
+                                       onblur="this.value = this.value.trim();"
+                                       maxlength="35">
+                                <div class="sign-in-error-message">
+                                <span *ngIf="!billingForm.get('billFirstName').valid && billingForm.get('billFirstName').touched"
+                                      class="help-block sub-little-signUp-error confpass">Billing First Name is {{!billingForm.get('billFirstName').valid && billingForm.get('billFirstName').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+
+                            <div class="input-field">
+                                <label>Billing Last Name <span>*</span></label>
+                                <input type="text" class="form-control inputbox capitalize" tabindex="2"
+                                       formControlName="billLastName" pattern="[A-Za-z\s]+"
+                                       onblur="this.value = this.value.trim();"
+                                       maxlength="35">
+                                <div class="sign-in-error-message">
+                                <span *ngIf="!billingForm.get('billLastName').valid && billingForm.get('billLastName').touched"
+                                      class="help-block sub-little-signUp-error confpass">Billing Last Name is {{!billingForm.get('billLastName').valid && billingForm.get('billLastName').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="register-form-container">
+                            <div class="input-field">
+                                <label>Billing Email <span>*</span></label>
+                                <input type="email" class="form-control inputbox" formControlName="billEmail"
+                                       onkeyup="this.value = this.value.trim();" maxlength="70" tabindex="3">
+                                <div class="sign-in-error-message">
+                                <span *ngIf="!billingForm.get('billEmail').valid && billingForm.get('billEmail').touched"
+                                      class="help-block sub-little-signUp-error confpass">Email is {{!billingForm.get('billEmail').valid && billingForm.get('billEmail').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+
+                            <div class="input-field">
+                                <label>Billing Phone Number</label>
+                                <input type="text" class="form-control inputbox" formControlName="billPhoneNumber"
+                                       [textMask]="{mask: mask, guide: false}" minlength="12" maxlength="12"
+                                       onblur="this.value = this.value.trim();" tabindex="4">
+                                <div class="sign-in-error-message">
+                                <span *ngIf="!billingForm.get('billPhoneNumber').valid && billingForm.get('billPhoneNumber').touched"
+                                      class="help-block sub-little-signUp-error confpass">Phone Number is {{!billingForm.get('billPhoneNumber').valid && billingForm.get('billPhoneNumber').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="register-form-container">
+                            <div class="input-field">
+                                <label>State</label>
+                                <div class="dropdown dropdown-state">
+                                    <select class="dropdown-state-toggle" formControlName="billState" tabindex="5">
+                                        <option value="" selected>Select</option>
+                                        <option *ngFor="let BillStateCode of stateGroupList[0]">{{BillStateCode.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="sign-in-error-message">
+                                <span *ngIf="!billingForm.get('billState').valid && billingForm.get('billState').touched"
+                                      class="help-block sub-little-signUp-error confpass">State is {{!billingForm.get('billState').valid && billingForm.get('billState').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+
+                            <div class="input-field">
+                                <label>City</label>
+                                <input type="text" class="form-control inputbox capitalize" formControlName="billCity"
+                                       onblur="this.value = this.value.trim();" maxlength="35" pattern="[A-Za-z\s]+"
+                                       tabindex="6">
+                                <div class="sign-in-error-message">
+                                <span *ngIf="!billingForm.get('billCity').valid && billingForm.get('billCity').touched"
+                                      class="help-block sub-little-signUp-error confpass">City is {{!billingForm.get('billCity').valid && billingForm.get('billCity').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="register-form-container">
+                            <div class="input-field">
+                                <label>Street Address</label>
+                                <input type="text" class="form-control inputbox capitalize"
+                                       formControlName="billAddress" maxlength="100"
+                                       onblur="this.value = this.value.trim();" tabindex="7">
+                                <div class="sign-in-error-message">
+                                <span *ngIf="!billingForm.get('billAddress').valid && billingForm.get('billAddress').touched"
+                                      class="help-block sub-little-signUp-error confpass">Street Address is {{!billingForm.get('billAddress').valid && billingForm.get('billAddress').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+
+                            <div class="input-field">
+                                <label>Zip</label>
+                                <input type="text" class="form-control inputbox" formControlName="billZip"
+                                       [textMask]="{mask: zipMask, guide: false}"
+                                       onblur="this.value = this.value.trim();" minlength="5" maxlength="5"
+                                       tabindex="8">
+                                <div class="sign-in-error-message">
+                                <span *ngIf="!billingForm.get('billZip').valid && billingForm.get('billZip').touched"
+                                      class="help-block sub-little-signUp-error confpass">Zip is {{!billingForm.get('billZip').valid && billingForm.get('billZip').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 go-btn">
+                            <button type="button" class="submit back" (click)="back()"><i class="fa fa-chevron-left"
+                                                                                          aria-hidden="true"></i> Back
+                            </button>
+                            <button type="submit" class="submit" [ngClass]="{'disableBillSubmit':disableBillSubmit()}"
+                                    [disabled]="disableBillSubmit()">Next <i class="fa fa-chevron-right"
+                                                                             aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <form *ngIf="setType === 'security'" [formGroup]="securityForm"
+                          (ngSubmit)="onSubmit(securityForm.value)">
+                        <div class="register-form-container padding-top" formGroupName="passwords">
+                            <div class="input-field">
+                                <label>Password <span>*</span></label>
+                                <input type="password" class="form-control inputbox" tabindex="1"
+                                       formControlName="password" onkeyup="this.value = this.value.trim();"
+                                       maxlength="16">
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!securityForm.get('passwords').get('password').valid && securityForm.get('passwords').get('password').touched"
+                                          class="help-block sub-little-signUp-error confpass">Password must be 8 characters long</span>
+                                </div>
+                            </div>
+
+                            <div class="input-field">
+                                <label>Confirm Password <span>*</span></label>
+                                <input type="password" class="form-control inputbox" tabindex="2"
+                                       formControlName="confirmPassword" onkeyup="this.value = this.value.trim();"
+                                       maxlength="16">
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!securityForm.get('passwords').valid && (securityForm.get('passwords').get('password').touched && securityForm.get('passwords').get('confirmPassword').touched)"
+                                          class="help-block sub-little-text confpass">Password doesn't match</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 go-btn">
+                            <button type="button" class="submit back" (click)="backToBilling()">
+                                <i class="fa fa-chevron-left" aria-hidden="true"></i> Back
+                            </button>
+                            <button type="submit" class="submit"
+                                    [ngClass]="{'disableSecuritySubmit':disableSecuritySubmit()}"
+                                    [disabled]="disableSecuritySubmit()">Register
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

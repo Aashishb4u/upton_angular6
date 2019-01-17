@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg fixed-top">
+    <a class="navbar-brand" [routerLink]="['/dashboard']">
+        <img src="../../../../assets/img/uptonLogo.png">
+    </a>
+    <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
+        <!-- <span class="navbar-toggler-icon"></span> -->
+        <i class="fa fa-bars text-muted" aria-hidden="true"></i>
+    </button>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown" ngbDropdown>
+                <a href="javascript:void(0)" class="nav-link logout" ngbDropdownToggle>
+                    <i class="fa fa-user"></i> {{userName}} <b class="caret"></b>
+                </a>
+                <div class="dropdown-menu-right"
+                     style=" top: 65px !important; left: 0;  background-color: rgb(227, 226, 227);" ngbDropdownMenu>
+                    <a class="dropdown-item items" [routerLink]="['/edit-profile']">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right: 7px;"></i> {{ 'Edit
+                        Profile' }}
+                    </a>
+                    <a class="dropdown-item items" [routerLink]="['/settings']">
+                        <i class="fa fa-cog" aria-hidden="true" style="margin-right: 7px;"></i> {{ 'Account Settings' }}
+                    </a>
+                    <a class="dropdown-item items" (click)="onLoggedout()">
+                        <i class="fa fa-power-off" aria-hidden="true" style="margin-right: 7px;"></i> {{ 'Log Out' }}
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

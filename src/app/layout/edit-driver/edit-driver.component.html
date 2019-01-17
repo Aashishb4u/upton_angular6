@@ -1,0 +1,257 @@
+<div class="padding-top">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="edit-driver">
+                <div class="col-lg-12">
+                    <form [formGroup]="editDriverForm" (ngSubmit)="onSubmit(editDriverForm.value)">
+                        <div class="form-group form-title">
+                            <label>Store Details</label>
+                        </div>
+                        <div class="form-block">
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Assign Store Number <span>*</span></label>
+                                    <select class="form-control" formControlName="storeNumber" tabindex="1" autofocus>
+                                        <option value="" selected>TBD - To Be Determined</option>
+                                        <option *ngFor="let store of storeList" value="{{store.id}}">
+                                            {{store.store_number}}
+                                        </option>
+                                    </select>
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!editDriverForm.get('storeNumber').valid && editDriverForm.get('storeNumber').touched"
+                                              class="help-block sub-little-signUp-error confpass">Store Number is {{!editDriverForm.get('storeNumber').valid && editDriverForm.get('storeNumber').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-title">
+                            <label>Driver Details</label>
+                        </div>
+                        <div class="form-block">
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Driver First Name <span>*</span></label>
+                                    <input class="form-control capitalize" type="text" tabindex="2"
+                                           formControlName="driverFirstName" pattern="[A-Za-z\s]+"
+                                           onblur="this.value = this.value.trim();" maxlength="35">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!editDriverForm.get('driverFirstName').valid && editDriverForm.get('driverFirstName').touched"
+                                              class="help-block sub-little-signUp-error confpass">First Name is {{!editDriverForm.get('driverFirstName').valid && editDriverForm.get('driverFirstName').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="input-field">
+                                    <label>Driver Last Name <span>*</span></label>
+                                    <input class="form-control capitalize" type="text" formControlName="driverLastName"
+                                           tabindex="3" pattern="[A-Za-z\s]+"
+                                           onblur="this.value = this.value.trim();" maxlength="35">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!editDriverForm.get('driverLastName').valid && editDriverForm.get('driverLastName').touched"
+                                              class="help-block sub-little-signUp-error confpass">Last Name is {{!editDriverForm.get('driverLastName').valid && editDriverForm.get('driverLastName').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Email <span>*</span></label>
+                                    <input class="form-control email-field" type="text" maxlength="70"
+                                           formControlName="email"
+                                           onkeyup="this.value = this.value.trim();" tabindex="4" readonly>
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!editDriverForm.get('email').valid && editDriverForm.get('email').touched"
+                                              class="help-block sub-little-signUp-error confpass">Email is {{!editDriverForm.get('email').valid && editDriverForm.get('email').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="input-field">
+                                    <label>Date of Birth <span>*</span></label>
+                                    <div class="input-group">
+                                        <input class="form-control" style="float:none" placeholder="Select a date"
+                                               ngx-mydatepicker name="myDate"
+                                               formControlName="driverDOB" [options]="myOptions" #dp="ngx-mydatepicker"
+                                               tabindex="5" readonly/>
+
+                                        <span class="input-group-btn">
+                                             <button type="button" class="btn btn-default date-btn" tabindex="6"
+                                                     (click)="dp.toggleCalendar()">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default date-btn" tabindex="7"
+                                                    (click)="dp.clearDate()">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!editDriverForm.get('driverDOB').valid && editDriverForm.get('driverDOB').touched"
+                                              class="help-block sub-little-signUp-error confpass">Date of Birth is {{!editDriverForm.get('driverDOB').valid && editDriverForm.get('driverDOB').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Driver License Number <span>*</span></label>
+                                    <input class="form-control" type="text" formControlName="licenseNumber"
+                                           onblur="this.value = this.value.trim();" maxlength="15" tabindex="8">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!editDriverForm.get('licenseNumber').valid && editDriverForm.get('licenseNumber').touched"
+                                              class="help-block sub-little-signUp-error confpass">License Number is {{!editDriverForm.get('licenseNumber').valid && editDriverForm.get('licenseNumber').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="input-field">
+                                    <label>Driver License State <span>*</span></label>
+                                    <select class="form-control" formControlName="licenseState" tabindex="9">
+                                        <option value="" selected>Select State</option>
+                                        <option *ngFor="let stateCode of stateGroupList[0]">
+                                            {{stateCode.name}}
+                                        </option>
+                                    </select>
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!editDriverForm.get('licenseState').valid && editDriverForm.get('licenseState').touched"
+                                              class="help-block sub-little-signUp-error confpass">License State is {{!editDriverForm.get('licenseState').valid && editDriverForm.get('licenseState').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Driver License Issue Date </label>
+                                    <div class="input-group">
+                                        <input class="form-control" style="float:none" placeholder="Select a date"
+                                               ngx-mydatepicker
+                                               formControlName="licenseIssueDate" [options]="myOptions1"
+                                               #dp1="ngx-mydatepicker" tabindex="10" readonly/>
+
+                                        <span class="input-group-btn">
+                                             <button type="button" class="btn btn-default date-btn" tabindex="11"
+                                                     (click)="dp1.toggleCalendar()">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default date-btn" tabindex="12"
+                                                    (click)="dp1.clearDate()">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!editDriverForm.get('licenseIssueDate').valid && editDriverForm.get('licenseIssueDate').touched"
+                                              class="help-block sub-little-signUp-error confpass">License Issue Date is {{!editDriverForm.get('licenseIssueDate').valid && editDriverForm.get('licenseIssueDate').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <label>Driver License Expiration Date </label>
+                                    <div class="input-group">
+                                        <input class="form-control" style="float:none" placeholder="Select a date"
+                                               ngx-mydatepicker
+                                               formControlName="licenseExpirationDate" [options]="myOptions1"
+                                               #dp2="ngx-mydatepicker" tabindex="13" readonly/>
+
+                                        <span class="input-group-btn">
+                                             <button type="button" class="btn btn-default date-btn" tabindex="14"
+                                                     (click)="dp2.toggleCalendar()">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default date-btn" tabindex="15"
+                                                    (click)="dp2.clearDate()">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Phone Number</label>
+                                    <input class="form-control" type="text" [textMask]="{mask: mask, guide: false}"
+                                           formControlName="phoneNumber"
+                                           minlength="12" maxlength="12" onblur="this.value = this.value.trim();"
+                                           tabindex="16">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!editDriverForm.get('phoneNumber').valid && editDriverForm.get('phoneNumber').touched"
+                                              class="help-block sub-little-signUp-error confpass">Phone Number is {{!editDriverForm.get('phoneNumber').valid && editDriverForm.get('phoneNumber').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="input-field">
+                                    <label>Alternate Phone Number</label>
+                                    <input class="form-control" type="text" [textMask]="{mask: mask, guide: false}"
+                                           formControlName="altPhoneNumber"
+                                           minlength="12" maxlength="12" onblur="this.value = this.value.trim();"
+                                           tabindex="17">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!editDriverForm.get('altPhoneNumber').valid && editDriverForm.get('altPhoneNumber').touched"
+                                              class="help-block sub-little-signUp-error confpass">Alternate Phone Number is {{!editDriverForm.get('altPhoneNumber').valid && editDriverForm.get('altPhoneNumber').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Last MVR Date </label>
+                                    <div class="input-group">
+                                        <input class="form-control" style="float:none" placeholder="Select a date"
+                                               ngx-mydatepicker
+                                               formControlName="lastMvrDate" [options]="myOptions1"
+                                               #dp3="ngx-mydatepicker" tabindex="18" readonly/>
+
+                                        <span class="input-group-btn">
+                                             <button type="button" class="btn btn-default date-btn" tabindex="19"
+                                                     (click)="dp3.toggleCalendar()">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default date-btn" tabindex="20"
+                                                    (click)="dp3.clearDate()">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="input-field">
+                                    <label>Re-Check MVR</label>
+                                    <select class="form-control" formControlName="recheckMvr" tabindex="21">
+                                        <option [value]="null" selected>Select Month</option>
+                                        <option value="1 month">1 Month</option>
+                                        <option value="3 months">3 Month</option>
+                                        <option value="6 months">6 Month</option>
+                                    </select>
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!editDriverForm.get('recheckMvr').valid && editDriverForm.get('recheckMvr').touched"
+                                              class="help-block sub-little-signUp-error confpass">Re-Check MVR is {{!editDriverForm.get('recheckMvr').valid && editDriverForm.get('recheckMvr').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Comments</label>
+                                    <textarea class="form-control" type="text" formControlName="comments"
+                                              onblur="this.value = this.value.trim();" maxlength="200"
+                                              tabindex="22"></textarea>
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!editDriverForm.get('comments').valid && editDriverForm.get('comments').touched"
+                                              class="help-block sub-little-signUp-error confpass">Comments is {{!editDriverForm.get('comments').valid && editDriverForm.get('comments').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 submit-button">
+                            <button type="submit" class="submit" tabindex="23"
+                                    [ngClass]="{'disableSubmit':disableSubmit()}" [disabled]="disableSubmit()">
+                                Update Driver
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,101 @@
+<div class="padding-top">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="add-company">
+                <div class="col-lg-12">
+                    <form [formGroup]="addCompanyForm" (ngSubmit)="onSubmit(addCompanyForm.value)">
+                        <div class="form-group form-row-container">
+                            <div class="input-field">
+                                <label>Company Name <span>*</span></label>
+                                <input class="form-control capitalize" type="text" formControlName="companyName"
+                                       onblur="this.value = this.value.trim();" maxlength="70" tabindex="1" autofocus>
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!addCompanyForm.get('companyName').valid && addCompanyForm.get('companyName').touched"
+                                          class="help-block sub-little-signUp-error confpass">Company Name is {{!addCompanyForm.get('companyName').valid && addCompanyForm.get('companyName').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                            <div class="input-field">
+                                <label>Email <span>*</span></label>
+                                <input class="form-control" type="email" formControlName="email"
+                                       onkeyup="this.value = this.value.trim();" maxlength="70" tabindex="2">
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!addCompanyForm.get('email').valid && addCompanyForm.get('email').touched"
+                                          class="help-block sub-little-signUp-error confpass">Email is {{!addCompanyForm.get('email').valid && addCompanyForm.get('email').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row-container">
+                            <div class="input-field">
+                                <label>Phone Number</label>
+                                <input class="form-control" type="text" formControlName="phoneNumber"
+                                       [textMask]="{mask: mask, guide: false}" minlength="12" maxlength="12"
+                                       onblur="this.value = this.value.trim();" tabindex="4">
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!addCompanyForm.get('phoneNumber').valid && addCompanyForm.get('phoneNumber').touched"
+                                          class="help-block sub-little-signUp-error confpass">Phone Number is {{!addCompanyForm.get('phoneNumber').valid && addCompanyForm.get('phoneNumber').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                            <div class="input-field">
+                                <label>State</label>
+                                <select class="form-control" formControlName="state" tabindex="5">
+                                    <option class="ng-tns-c9-1" value="" selected>Select State</option>
+                                    <option class="ng-tns-c9-1" *ngFor="let stateCode of stateGroupList[0]">
+                                        {{stateCode.name}}
+                                    </option>
+                                </select>
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!addCompanyForm.get('state').valid && addCompanyForm.get('state').touched"
+                                          class="help-block sub-little-signUp-error confpass">State is {{!addCompanyForm.get('state').valid && addCompanyForm.get('state').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row-container">
+                            <div class="input-field">
+                                <label>City</label>
+                                <input class="form-control capitalize" type="text" formControlName="city"
+                                       onblur="this.value = this.value.trim();" maxlength="35" pattern="[A-Za-z\s]+"
+                                       tabindex="6">
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!addCompanyForm.get('city').valid && addCompanyForm.get('city').touched"
+                                          class="help-block sub-little-signUp-error confpass">City is {{!addCompanyForm.get('city').valid && addCompanyForm.get('city').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                            <div class="input-field">
+                                <label>Address</label>
+                                <input class="form-control capitalize" type="text" tabindex="7"
+                                       formControlName="address" onblur="this.value = this.value.trim();"
+                                       maxlength="100">
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!addCompanyForm.get('address').valid && addCompanyForm.get('address').touched"
+                                          class="help-block sub-little-signUp-error confpass">Address is {{!addCompanyForm.get('address').valid && addCompanyForm.get('address').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row-container">
+                            <div class="input-field">
+                                <label>Zip</label>
+                                <input class="form-control" type="text" formControlName="zip"
+                                       [textMask]="{mask: zipMask, guide: false}"
+                                       onblur="this.value = this.value.trim();" minlength="5" maxlength="5"
+                                       tabindex="8">
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!addCompanyForm.get('zip').valid && addCompanyForm.get('zip').touched"
+                                          class="help-block sub-little-signUp-error confpass">Zip is {{!addCompanyForm.get('zip').valid && addCompanyForm.get('zip').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 submit-button">
+                            <button type="submit" class="submit" [ngClass]="{'disableSubmit':disableSubmit()}"
+                                    [disabled]="disableSubmit()" tabindex="9">Add Company
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

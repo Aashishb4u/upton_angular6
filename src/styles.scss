@@ -1,0 +1,246 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+
+/*ngx Modal CSS*/
+.modal-header {
+    border: none;
+    padding: 10px 10px 0 15px;
+    font-size: 22px;
+    text-align: center;
+    display: block;
+}
+
+.modalHeader {
+    padding: 6px 0;
+}
+
+.modal-footer {
+    border: none;
+    padding: 0;
+}
+
+button.close {
+    float: right;
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: 0.7;
+    padding-bottom: 2px;
+    outline: none;
+}
+
+button.close:hover {
+    font-size: 22px;
+    opacity: 0.9;
+    color: #000000;
+}
+
+.fade {
+    opacity: 1 !important;
+    background: rgba(0, 0, 0, 0.5);
+    padding-top: 20%;
+}
+
+h1 {
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.modal-content {
+    margin-top: -10%;
+    color: #353535;
+    opacity: 1;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    background-clip: padding-box;
+    outline: 0;
+}
+
+.modal-body {
+    padding: 15px;
+}
+
+.heading {
+    padding: 15px;
+    border-bottom: 1px solid #b1b0b0;
+}
+
+.content-block {
+    width: 100%;
+    float: left;
+    padding: 5px 0;
+}
+
+.button-container {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.btn-primary {
+    float: left;
+    margin: 0 10px;
+    width: 40%;
+    padding: 4px 0;
+    font-size: 14px;
+    outline: none;
+}
+
+.no {
+    float: left;
+    margin: 0 10px;
+    width: 40%;
+    padding: 4px 0;
+    font-size: 14px;
+    outline: none;
+    color: #fff;
+    background-color: gray;
+    border: 1px solid gray;
+}
+
+.yes {
+    float: left;
+    margin: 0 10px;
+    width: 40%;
+    outline: none;
+    color: #fff;
+    padding: 0 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    height: 32px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom, #08c, #04c);
+    background-repeat: repeat-x;
+    border-color: #04c #04c #002a80;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+/* For pagination control*/
+.paginationControl {
+    padding: 0;
+    font-size: 12px;
+}
+
+.ngx-pagination {
+    margin-left: 0;
+    margin-bottom: 1rem;
+    padding: 0;
+}
+
+#listItem .ngx-pagination .current {
+    background: #c61e23;
+    border: 1px solid #c61e23;
+    color: #fff;
+}
+
+#listItem .ngx-pagination .pagination-previous {
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+#listItem .ngx-pagination .pagination-next {
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+#listItem .ngx-pagination a {
+    color: #c61e23;
+}
+
+#listItem .ngx-pagination a:hover {
+    background: transparent;
+}
+
+#listItem .ngx-pagination .disabled {
+    padding: 3px 10px;
+    margin-left: 1px;
+    color: #cacaca;
+    cursor: not-allowed;
+}
+
+#listItem ul li {
+    border: 1px solid #d6d6d6;
+    margin-left: -2px;
+    height: 35px;
+    text-align: center;
+    min-width: 35px;
+    line-height: 25px;
+}
+
+#listItem ul li:hover {
+    background: transparent;
+}
+
+.pageControl {
+    cursor: pointer;
+    padding: 0;
+    float: right;
+    margin-top: 20px;
+}
+
+.black-overlay {
+    position: fixed !important;
+}
+
+.selected-list .c-btn {
+    width: 100%;
+    padding: 0.375rem 0.75rem !important;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #495057;
+    background-clip: padding-box;
+    border-radius: 4px !important;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    outline: none;
+    box-shadow: none !important;
+    cursor: pointer;
+}
+
+body {
+    font-family: 'DinM';
+}
+
+
+@font-face {
+    font-family: 'DinL';
+    src: url('/assets/fonts/DINPro-Light_13935.ttf');
+}
+
+@font-face {
+    font-family: 'DinB';
+    src: url('/assets/fonts/DINPro-Bold_13934.ttf');
+}
+
+@font-face {
+    font-family: 'DinM';
+    src: url('/assets/fonts/DINPro-Medium_13936.ttf');
+}
+
+@media screen and (max-width: 992px) {
+    .push-right .sidebar {
+        left: 215px !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .pageControl {
+        float: left;
+    }
+    .modal-content {
+        margin-top: 20%;
+    }
+}
+@media screen and (max-width: 500px) {
+    .button-container {
+        width: 80%;
+    }
+}
+

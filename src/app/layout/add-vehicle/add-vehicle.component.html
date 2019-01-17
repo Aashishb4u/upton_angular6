@@ -1,0 +1,355 @@
+<div class="padding-top">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="add-vehicle">
+                <div class="col-lg-12">
+                    <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit(vehicleForm.value)">
+                        <div class="form-group form-title">
+                            <label>Vehicle Details</label>
+                        </div>
+                        <div class="form-block">
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Year <span>*</span></label>
+                                    <select class="form-control" formControlName="year" tabindex="1" autofocus>
+                                        <option value="" selected>Select Year</option>
+                                        <option *ngFor="let year of yearGroupList[0]">
+                                            {{year.name}}
+                                        </option>
+                                    </select>
+                                    <div class="sign-in-error-message">
+                                    <span *ngIf="!vehicleForm.get('year').valid && vehicleForm.get('year').touched"
+                                          class="help-block sub-little-signUp-error confpass">State is {{!vehicleForm.get('year').valid && vehicleForm.get('year').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <label>Make <span>*</span></label>
+                                    <input class="form-control capitalize" type="text" formControlName="make" tabindex="2"
+                                           onblur="this.value = this.value.trim();" maxlength="35">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!vehicleForm.get('make').valid && vehicleForm.get('make').touched"
+                                          class="help-block sub-little-signUp-error confpass">Make is {{!vehicleForm.get('make').valid && vehicleForm.get('make').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Model <span>*</span></label>
+                                    <input class="form-control capitalize" type="text" formControlName="model" tabindex="3"
+                                           onblur="this.value = this.value.trim();" maxlength="35">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!vehicleForm.get('model').valid && vehicleForm.get('model').touched"
+                                              class="help-block sub-little-signUp-error confpass">Model is {{!vehicleForm.get('model').valid && vehicleForm.get('model').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+
+
+                                <div class="input-field">
+                                    <label>Tag Number <span>*</span></label>
+                                    <input class="form-control" type="text" formControlName="tagNumber" tabindex="4"
+                                           onblur="this.value = this.value.trim();" maxlength="35">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!vehicleForm.get('tagNumber').valid && vehicleForm.get('tagNumber').touched"
+                                              class="help-block sub-little-signUp-error confpass">Tag Number is {{!vehicleForm.get('tagNumber').valid && vehicleForm.get('tagNumber').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Tag Expiration Date <span>*</span></label>
+                                    <div class="input-group">
+                                        <input class="form-control" style="float:none" placeholder="Select a date"
+                                               ngx-mydatepicker formControlName="tagExpirationDate"
+                                               [options]="myOptions1" #dp1="ngx-mydatepicker" tabindex="5" readonly/>
+                                        <span class="input-group-btn">
+                                             <button type="button" class="btn btn-default date-btn" tabindex="6"
+                                                     (click)="dp1.toggleCalendar()">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default date-btn" tabindex="7"
+                                                    (click)="dp1.clearDate()">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!vehicleForm.get('tagExpirationDate').valid && vehicleForm.get('tagExpirationDate').touched"
+                                              class="help-block sub-little-signUp-error confpass">Tag Expiration Date is {{!vehicleForm.get('tagExpirationDate').valid && vehicleForm.get('tagExpirationDate').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-title">
+                            <label>Vehicle Owner Details</label>
+                        </div>
+                        <div class="form-block">
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Owner First Name <span>*</span></label>
+                                    <input class="form-control capitalize" type="text" formControlName="ownerFirstName" tabindex="8" pattern="[A-Za-z\s]+"
+                                           onblur="this.value = this.value.trim();" maxlength="35">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!vehicleForm.get('ownerFirstName').valid && vehicleForm.get('ownerFirstName').touched"
+                                              class="help-block sub-little-signUp-error confpass">Owner First Name is {{!vehicleForm.get('ownerFirstName').valid && vehicleForm.get('ownerFirstName').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+
+
+                                <div class="input-field">
+                                    <label>Owner Last Name <span>*</span></label>
+                                    <input class="form-control capitalize" type="text" formControlName="ownerLastName" tabindex="9" pattern="[A-Za-z\s]+"
+                                           onblur="this.value = this.value.trim();" maxlength="35">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!vehicleForm.get('ownerLastName').valid && vehicleForm.get('ownerLastName').touched"
+                                              class="help-block sub-little-signUp-error confpass">Owner Last Name is {{!vehicleForm.get('ownerLastName').valid && vehicleForm.get('ownerLastName').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Relationship to Driver</label>
+                                    <select class="form-control" formControlName="relation"  tabindex="10">
+                                        <option value="" selected>--Please Select--</option>
+                                        <option value="parent">Parent</option>
+                                        <option value="spouse">Spouse</option>
+                                        <option value="self">Self</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!vehicleForm.get('relation').valid && vehicleForm.get('relation').touched"
+                                              class="help-block sub-little-signUp-error confpass">Relationship to Driver is {{!vehicleForm.get('relation').valid && vehicleForm.get('relation').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group form-title">
+                            <label>Vehicle Insurance Details</label>
+                        </div>
+                        <div class="form-block">
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Insurance Carrier Name</label>
+                                    <input class="form-control capitalize" type="text" formControlName="insuranceCarrierName" tabindex="11" pattern="[A-Za-z\s]+"
+                                           onblur="this.value = this.value.trim();" maxlength="35">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!vehicleForm.get('insuranceCarrierName').valid && vehicleForm.get('insuranceCarrierName').touched"
+                                              class="help-block sub-little-signUp-error confpass">Insurance Carrier Name is {{!vehicleForm.get('insuranceCarrierName').valid && vehicleForm.get('insuranceCarrierName').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="input-field">
+                                    <div class="upload-file">
+                                        <button type="button" title="Upload" tabindex="12" (click)="addFileModal.open()">Upload File</button>
+                                        <span>Note: You can attach or upload copy of proof of insurance.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Policy Number</label>
+                                    <input class="form-control capitalize" type="text" formControlName="policyNumber" tabindex="13"
+                                           onblur="this.value = this.value.trim();" maxlength="35">
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!vehicleForm.get('policyNumber').valid && vehicleForm.get('policyNumber').touched"
+                                              class="help-block sub-little-signUp-error confpass">Policy Number is {{!vehicleForm.get('policyNumber').valid && vehicleForm.get('policyNumber').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-row-container">
+                                    <div class="input-field">
+                                        <label>Effective Date</label>
+                                        <div class="input-group">
+                                            <input class="form-control" style="float:none" placeholder="Select a date"
+                                                   ngx-mydatepicker formControlName="effectiveDate"
+                                                   [options]="myOptions1" #dp2="ngx-mydatepicker" tabindex="14" readonly/>
+
+                                        <span class="input-group-btn">
+                                             <button type="button" class="btn btn-default date-btn" tabindex="15"
+                                                     (click)="dp2.toggleCalendar()">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default date-btn" tabindex="16"
+                                                    (click)="dp2.clearDate()">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!vehicleForm.get('effectiveDate').valid && vehicleForm.get('effectiveDate').touched"
+                                              class="help-block sub-little-signUp-error confpass">Effective Date is {{!vehicleForm.get('effectiveDate').valid && vehicleForm.get('effectiveDate').value === ''?'required':'invalid'}}</span>
+                                </div>
+
+                                <div class="input-field">
+                                    <label>Expiration Date</label>
+                                    <div class="input-group">
+                                        <input class="form-control" style="float:none" placeholder="Select a date"
+                                               ngx-mydatepicker  formControlName="expirationDate"
+                                               [options]="myOptions1" #dp3="ngx-mydatepicker" tabindex="17" readonly/>
+
+                                        <span class="input-group-btn">
+                                             <button type="button" class="btn btn-default date-btn" tabindex="18"
+                                                     (click)="dp3.toggleCalendar()">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default date-btn" tabindex="19"
+                                                    (click)="dp3.clearDate()">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="sign-in-error-message">
+                                        <span *ngIf="!vehicleForm.get('expirationDate').valid && vehicleForm.get('expirationDate').touched"
+                                              class="help-block sub-little-signUp-error confpass">Expiration Date is {{!vehicleForm.get('expirationDate').valid && vehicleForm.get('expirationDate').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Vehicle Inspection Date</label>
+                                    <div class="input-group">
+                                        <input class="form-control" style="float:none" placeholder="Select a date"
+                                               ngx-mydatepicker  formControlName="viewInspectionDate"
+                                               [options]="myOptions1" #dp4="ngx-mydatepicker" tabindex="20" readonly/>
+
+                                        <span class="input-group-btn">
+                                             <button type="button" class="btn btn-default date-btn" tabindex="21"
+                                                     (click)="dp4.toggleCalendar()">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default date-btn" tabindex="22"
+                                                    (click)="dp4.clearDate()">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="sign-in-error-message">
+                                        <span *ngIf="!vehicleForm.get('viewInspectionDate').valid && vehicleForm.get('viewInspectionDate').touched"
+                                              class="help-block sub-little-signUp-error confpass">Vehicle Inspection Date is {{!vehicleForm.get('viewInspectionDate').valid && vehicleForm.get('viewInspectionDate').value === ''?'required':'invalid'}}</span>
+                                </div>
+
+                                <div class="input-field">
+                                    <div class="upload-file">
+                                        <button type="button" title="Upload" (click)="addInspectionFileModal.open()" tabindex="23">Upload File</button>
+                                        <span>Note:You can upload copy of vehicle inspection.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-row-container">
+                                <div class="input-field">
+                                    <label>Next Inspection Date</label>
+                                    <select class="form-control" formControlName="nextInspectionDate" tabindex="24">
+                                        <option value="1 month" selected>1 Month</option>
+                                        <option value="3 months">3 Months</option>
+                                        <option value="6 months">6 Months</option>
+                                        <option value="12 months">12 Months</option>
+                                    </select>
+                                    <div class="sign-in-error-message">
+                                        <span *ngIf="!vehicleForm.get('nextInspectionDate').valid && vehicleForm.get('nextInspectionDate').touched"
+                                              class="help-block sub-little-signUp-error confpass">Next Inspection Date is {{!vehicleForm.get('nextInspectionDate').valid && vehicleForm.get('nextInspectionDate').value === ''?'required':'invalid'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 submit-button">
+                            <button type="submit" class="submit" tabindex="25"
+                                    [ngClass]="{'disableSubmit':disableSubmit()}" [disabled]="disableSubmit()">
+                                Add Vehicle
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row modalContainer">
+    <modal #addFileModal>
+        <modal-header>
+            <div class="heading">
+                <h1 style="color: #1e4271; font-weight: 600;">Add Insurance File</h1>
+            </div>
+        </modal-header>
+        <modal-content>
+            <div class="content-block">
+                <div class="col-lg-12">
+                    <div  class="form-block">
+                        <div class="form-group form-row-container">
+                            <div class="input-field">
+                                <label>Upload File <span>*</span></label>
+                                <input #fileUpload class="form-control file-upload"
+                                       accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf"
+                                       type="file" (change)="fileChangeListener($event, 'insurance')" tabindex="1" autofocus/>
+                            </div>
+                        </div>
+                        <div class="form-group form-row-container">
+                            <div class="input-field">
+                                <label>Description <span>*</span></label>
+                                <textarea class="form-control file-upload" type="text" tabindex="2" [(ngModel)]="insuranceDescription"
+                                          onblur="this.value = this.value.trim();" maxlength="200"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12 submit-button">
+                            <button type="submit" class="submit" (click)="addInsuranceFile()" tabindex="3">Add File</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal-content>
+        <modal-footer></modal-footer>
+    </modal>
+</div>
+
+
+<div class="row modalContainer">
+    <modal #addInspectionFileModal>
+        <modal-header>
+            <div class="heading">
+                <h1 style="color: #1e4271; font-weight: 600;">Add Inspection File</h1>
+            </div>
+        </modal-header>
+        <modal-content>
+            <div class="content-block">
+                <div class="col-lg-12">
+                    <div  class="form-block">
+                        <div class="form-group form-row-container">
+                            <div class="input-field">
+                                <label>Upload File <span>*</span></label>
+                                <input #fileUpload class="form-control file-upload"
+                                       accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf"
+                                       type="file" (change)="fileChangeListener($event, 'inspection')" tabindex="1" autofocus/>
+                            </div>
+                        </div>
+                        <div class="form-group form-row-container">
+                            <div class="input-field">
+                                <label>Description <span>*</span></label>
+                                <textarea class="form-control file-upload" type="text" tabindex="2" [(ngModel)]="inspectionDescription"
+                                          onblur="this.value = this.value.trim();" maxlength="200"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12 submit-button">
+                            <button type="submit" class="submit" (click)="addInspectionFile()" tabindex="3">Add File</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal-content>
+        <modal-footer></modal-footer>
+    </modal>
+</div>

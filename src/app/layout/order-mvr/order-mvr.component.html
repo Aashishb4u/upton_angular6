@@ -1,0 +1,129 @@
+<div class="padding-top">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="manage-order-head">
+                <div class="search-container">
+                    <span class="search-icons"><i class="fa fa-search" aria-hidden="true"></i></span>
+                    <input placeholder="Search" [(ngModel)]="searchContent" class="search-thread"
+                           (keyup.enter)="findThread(searchContent)" onblur="this.value = this.value.trim()">
+                    <i *ngIf="searchContent.trim()" class="fa fa-close search-icon" (click)="clearSearch()"></i>
+                </div>
+            </div>
+            <div class="order-type">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="wizard">
+                            <div class="profile-tab" [ngClass]="{'current-tab' : activeTab == 'allOrder'}"
+                                 (click)="changeTab('allOrder')">
+                                <a>
+                                    <span class="tabText">Pending MVR</span>
+                                </a>
+                            </div>
+                            <div class="profile-tab" [ngClass]="{'current-tab' : activeTab == 'followUp'}"
+                                 (click)="changeTab('followUp')">
+                                <a>
+                                    <span class="tabText">Follow-up</span>
+                                </a>
+                            </div>
+                            <div class="profile-tab" [ngClass]="{'current-tab' : activeTab == 'signedAuthorization'}"
+                                 (click)="changeTab('signedAuthorization')">
+                                <a>
+                                    <span class="tabText">Signed Authorization</span>
+                                </a>
+                            </div>
+                            <div class="profile-tab" [ngClass]="{'current-tab' : activeTab == 'nonInsurable'}"
+                                 (click)="changeTab('nonInsurable')">
+                                <a>
+                                    <span class="tabText">Non-Insurable MVR</span>
+                                </a>
+                            </div>
+                            <div class="profile-tab" [ngClass]="{'current-tab' : activeTab == 'insurable'}"
+                                 (click)="changeTab('insurable')">
+                                <a>
+                                    <span class="tabText">Insurable MVR</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="manage-order">
+                <div class="col-lg-12 padding-zero">
+                    <div class="custyle">
+                        <table class="table-striped custab">
+                            <thead class="table-head">
+                            <tr>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>Store Number</span>
+                                </th>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>First Name</span>
+                                </th>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>Last Name</span>
+                                </th>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>License Number</span>
+                                </th>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>Status</span>
+                                </th>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>MVR Status Date</span>
+                                </th>
+                                <th class="border-row head-row"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="table-row-client"
+                                *ngFor='let order of orderList | paginate : { itemsPerPage: this.perPage, currentPage: pageNumber, id : "listItem", totalItems: totalCount }'>
+                                <td class="row-center-align">{{order.store_number}}</td>
+                                <td class="row-center-align capitalize">{{order.driverFirstName}}</td>
+                                <td class="row-center-align capitalize">{{order.driver_last_name}}</td>
+                                <td class="row-center-align">{{order.driver_license_number}}</td>
+                                <td class="row-center-align capitalize">{{order.status}}</td>
+                                <td class="row-center-align capitalize">{{order.driver_last_mvr_date | date:
+                                    "yyyy-MM-dd"}}
+                                </td>
+                                <td class="border-row">
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-primary dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <i class="fa fa-th" aria-hidden="true"></i>&nbsp;
+                                            Actions
+                                        </button>
+                                        <div class="dropdown-menu"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div *ngIf="orderList.length == 0" class="no-data">
+                            No record found
+                        </div>
+                    </div>
+                    <div class="entries">
+                        <div>
+                            <label>Show
+                                <select [(ngModel)]="perPage" (change)="pageLimit(perPage)">
+                                    <option value="10" selected>10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                entries</label>
+                        </div>
+                    </div>
+                    <div class="paginationControl">
+                        <pagination-controls class="pageControl" (pageChange)="getPageData($event)" id="listItem"
+                                             nextLabel="Next"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

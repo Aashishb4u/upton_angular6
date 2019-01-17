@@ -1,0 +1,150 @@
+<div class="padding-top">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="edit-user">
+                <div class="col-lg-12">
+                    <form [formGroup]="userEditForm" (ngSubmit)="onSubmit(userEditForm.value)">
+                        <div class="form-group form-row-container">
+                            <div class="input-field">
+                                <label>First Name <span>*</span></label>
+                                <input class="form-control capitalize" type="text" tabindex="1" pattern="[A-Za-z\s]+"
+                                       formControlName="firstName" onblur="this.value = this.value.trim();"
+                                       maxlength="35" autofocus>
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!userEditForm.get('firstName').valid && userEditForm.get('firstName').touched"
+                                          class="help-block sub-little-signUp-error confpass">First Name is {{!userEditForm.get('firstName').valid && userEditForm.get('firstName').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+
+                            <div class="input-field">
+                                <label>Last Name <span>*</span></label>
+                                <input class="form-control capitalize" type="text" tabindex="2" pattern="[A-Za-z\s]+"
+                                       formControlName="lastName" onblur="this.value = this.value.trim();"
+                                       maxlength="35">
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!userEditForm.get('lastName').valid && userEditForm.get('lastName').touched"
+                                          class="help-block sub-little-signUp-error confpass">Last Name is {{!userEditForm.get('lastName').valid && userEditForm.get('lastName').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row-container">
+                            <div class="input-field">
+                                <label>Email <span>*</span></label>
+                                <input class="form-control email-field" type="email" formControlName="email"
+                                       onblur="this.value = this.value.trim();" maxlength="70" tabindex="3" readonly>
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!userEditForm.get('email').valid && userEditForm.get('email').touched"
+                                          class="help-block sub-little-signUp-error confpass">Email is {{!userEditForm.get('email').valid && userEditForm.get('email').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+
+                            <div class="input-field">
+                                <label>Phone Number </label>
+                                <input class="form-control" type="text" formControlName="phoneNumber"
+                                       [textMask]="{mask: mask, guide: false}" minlength="12" maxlength="12"
+                                       onblur="this.value = this.value.trim();" tabindex="4">
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!userEditForm.get('phoneNumber').valid && userEditForm.get('phoneNumber').touched"
+                                          class="help-block sub-little-signUp-error confpass">Phone Number is {{!userEditForm.get('phoneNumber').valid && userEditForm.get('phoneNumber').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row-container">
+                            <div class="input-field">
+                                <label>State </label>
+                                <select class="form-control" formControlName="state" tabindex="5">
+                                    <option class="ng-tns-c9-1" value="null" selected>Select State</option>
+                                    <option class="ng-tns-c9-1" *ngFor="let stateCode of stateGroupList[0]">
+                                        {{stateCode.name}}
+                                    </option>
+                                </select>
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!userEditForm.get('state').valid && userEditForm.get('state').touched"
+                                          class="help-block sub-little-signUp-error confpass">State is {{!userEditForm.get('state').valid && userEditForm.get('state').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+
+                            <div class="input-field">
+                                <label>City </label>
+                                <input class="form-control capitalize" type="text" formControlName="city"
+                                       onblur="this.value = this.value.trim();" pattern="[A-Za-z\s]+"  maxlength="35" tabindex="6">
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!userEditForm.get('city').valid && userEditForm.get('city').touched"
+                                          class="help-block sub-little-signUp-error confpass">City is {{!userEditForm.get('city').valid && userEditForm.get('city').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row-container">
+                            <div class="input-field">
+                                <label>Address </label>
+                                <input class="form-control capitalize" type="text" formControlName="address"
+                                       onblur="this.value = this.value.trim();" maxlength="100" tabindex="7">
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!userEditForm.get('address').valid && userEditForm.get('address').touched"
+                                          class="help-block sub-little-signUp-error confpass">Address is {{!userEditForm.get('address').valid && userEditForm.get('address').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+
+                            <div class="input-field">
+                                <label>Zip </label>
+                                <input class="form-control" type="text" formControlName="zip" [textMask]="{mask: zipMask, guide: false}"
+                                       onblur="this.value = this.value.trim();" minlength="5" maxlength="5"
+                                       tabindex="8">
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!userEditForm.get('zip').valid && userEditForm.get('zip').touched"
+                                          class="help-block sub-little-signUp-error confpass">Zip is {{!userEditForm.get('zip').valid && userEditForm.get('zip').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row-container">
+                            <div class="input-field">
+                                <label>Role <span>*</span></label>
+                                <select class="form-control" formControlName="role" tabindex="9" (change)="updateRole(userEditForm.controls['role'].value)">
+                                    <option value="franchise_user" selected>Franchise User</option>
+                                    <option value="company_manager">Company Manager</option>
+                                    <option value="store_manager">Store Manager</option>
+                                </select>
+                                <div class="sign-in-error-message">
+                                    <span *ngIf="!userEditForm.get('role').valid && userEditForm.get('role').touched"
+                                          class="help-block sub-little-signUp-error confpass">Role is {{!userEditForm.get('role').valid && userEditForm.get('role').value === ''?'required':'invalid'}}</span>
+                                </div>
+                            </div>
+
+                            <div class="input-field" *ngIf="userEditForm.controls['role'].value == 'company_manager'">
+                                <label>Select Company List </label>
+                                <angular4-multiselect [data]="companyList" [(ngModel)]="selectedItems"
+                                                      [settings]="dropdownSettings"
+                                                      (onSelect)="onItemSelect($event)"
+                                                      (onDeSelect)="OnItemDeSelect($event)"
+                                                      (onSelectAll)="onSelectAll($event)"
+                                                      (onDeSelectAll)="onDeSelectAll($event)"
+                                                      formControlName="companyStoreDetails" tabindex="10"></angular4-multiselect>
+                            </div>
+
+                            <div class="input-field" *ngIf="userEditForm.controls['role'].value == 'store_manager'">
+                                <label>Select Store List </label>
+                                <angular4-multiselect [data]="storeList" [(ngModel)]="selectedItems"
+                                                      [settings]="storeSettings"
+                                                      (onSelect)="onItemSelect($event)"
+                                                      (onDeSelect)="OnItemDeSelect($event)"
+                                                      (onSelectAll)="onSelectAll($event)"
+                                                      (onDeSelectAll)="onDeSelectAll($event)"
+                                                      formControlName="companyStoreDetails" tabindex="10"></angular4-multiselect>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 submit-button">
+                            <button type="submit" class="submit" [ngClass]="{'disableSubmit':disableSubmit()}"
+                                    [disabled]="disableSubmit()" tabindex="11"> Update User
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

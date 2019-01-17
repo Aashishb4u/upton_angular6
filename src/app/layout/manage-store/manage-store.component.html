@@ -1,0 +1,117 @@
+<div class="padding-top">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="manage-store-head">
+                <div class="search-container">
+                    <span class="search-icons"><i class="fa fa-search" aria-hidden="true"></i></span>
+                    <input placeholder="Search" [(ngModel)]="searchContent" class="search-thread"
+                           (keyup.enter)="findThread(searchContent)" onblur="this.value = this.value.trim()">
+                    <i *ngIf="searchContent.trim()" class="fa fa-close search-icon" (click)="clearSearch()"></i>
+                </div>
+                <div class="add-store-container">
+                    <button type="button" [routerLink]="['/manage-store/add-store']" title="Add Store"><i class="fa fa-plus" aria-hidden="true"></i>
+                        Add Store
+                    </button>
+                </div>
+            </div>
+            <div class="manage-store">
+                <div class="col-lg-12 padding-zero">
+                    <div class="custyle">
+                        <table class="table-striped custab">
+                            <thead class="table-head">
+                            <tr>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>Member Since</span>
+                                </th>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>Store Number</span>
+                                </th>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>Company Name</span>
+                                </th>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>Store Phone</span>
+                                </th>
+                                <th class="border-row head-row cursor-pointer">
+                                    <span>Store Address</span>
+                                </th>
+                                <th class="border-row head-row"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="table-row-client"
+                                *ngFor='let store of franchiseStoreList | paginate : { itemsPerPage: this.perPage, currentPage: pageNumber, id : "listItem", totalItems: totalCount }'>
+                                <td class="row-center-align capitalize">{{store.created_at | date: "yyyy-MM-dd"}}</td>
+                                <td class="row-center-align capitalize">{{store.store_number}}</td>
+                                <td class="row-center-align capitalize">{{store.company_name}}</td>
+                                <td class="row-center-align capitalize">{{store.phone}}</td>
+                                <td class="row-center-align capitalize">{{store.address}}</td>
+                                <td class="border-row">
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-th" aria-hidden="true"></i>&nbsp;
+                                            Actions
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item items" title="Edit Store" (click)="editStore(store)">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;
+                                                <span>Edit</span>
+                                            </a>
+                                            <a class="dropdown-item items" title="Delete Store" (click)="deleteStore(store)">
+                                                <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;
+                                                <span>Delete</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div *ngIf="franchiseStoreList.length == 0" class="no-data">
+                            No record found
+                        </div>
+                    </div>
+                    <div class="entries">
+                        <div>
+                            <label>Show
+                                <select [(ngModel)]="perPage" (change)="pageLimit(perPage)">
+                                    <option value="10" selected>10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                entries</label>
+                        </div>
+                    </div>
+                    <div class="paginationControl">
+                        <pagination-controls class="pageControl" (pageChange)="getPageData($event)" id="listItem"
+                                             nextLabel="Next">
+                        </pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row modalContainer">
+    <modal #myModal>
+        <modal-header>
+            <div class="heading">
+                <h1>Are you sure you want to delete this Store?</h1>
+            </div>
+        </modal-header>
+        <modal-content>
+            <div class="content-block">
+                <div class="button-container">
+                    <button type="button" class="btn no" (click)="myModal.close()" tabindex="2">No</button>
+                    <button type="submit" id="myAnchor" class="btn yes"  (click)="confirmDelete()" tabindex="1">Yes</button>
+                </div>
+            </div>
+        </modal-content>
+        <modal-footer></modal-footer>
+    </modal>
+</div>
+
+
+
